@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:collection/collection.dart' show IterableExtension;
@@ -62,10 +63,10 @@ abstract class EpubContentFileRef {
     return contentStream;
   }
 
-  Future<List<int>> readContentAsBytes() async {
+  Future<Uint8List> readContentAsBytes() async {
     var contentFileEntry = getContentFileEntry();
     var content = openContentStream(contentFileEntry);
-    return content;
+    return Uint8List.fromList(content);
   }
 
   Future<String> readContentAsText() async {

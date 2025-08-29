@@ -7,12 +7,14 @@ class EpubChapter {
   String? Anchor;
   String? HtmlContent;
   List<EpubChapter>? SubChapters;
+  List<String> OtherContentFileNames = [];
 
   @override
   int get hashCode {
     var objects = [
       Title.hashCode,
       ContentFileName.hashCode,
+      OtherContentFileNames.hashCode,
       Anchor.hashCode,
       HtmlContent.hashCode,
       ...SubChapters?.map((subChapter) => subChapter.hashCode) ?? [0],
@@ -27,6 +29,7 @@ class EpubChapter {
     }
     return Title == other.Title &&
         ContentFileName == other.ContentFileName &&
+        OtherContentFileNames == other.OtherContentFileNames &&
         Anchor == other.Anchor &&
         HtmlContent == other.HtmlContent &&
         collections.listsEqual(SubChapters, other.SubChapters);

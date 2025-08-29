@@ -45,6 +45,18 @@ class ChapterReader {
       chapterRef.Title = navigationPoint.NavigationLabels!.first.Text;
       chapterRef.SubChapters =
           getChaptersImpl(bookRef, navigationPoint.ChildNavigationPoints!);
+      if(chapterRef.ContentFileName!.contains('_split_')) {
+        var fileNamePart = chapterRef.ContentFileName!.split('_split_')[0];
+        for (var fileName in bookRef.Content!.Html!.keys) {
+          if(fileName.contains(fileNamePart)) {
+            if (fileName == contentFileName) {
+              continue;
+            }
+            chapterRef.otherTextContentFileRefs.add(bookRef.Content!.Html![fileName]!);
+            chapterRef.OtherContentFileNames.add(fileName);
+          }
+        }
+      }
 
       result.add(chapterRef);
     };
